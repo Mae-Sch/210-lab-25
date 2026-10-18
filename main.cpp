@@ -9,6 +9,7 @@ using namespace std;
 using namespace std::chrono;
 
 const int NUM_CODES = 20000;
+const string INSERT_STRING = "TESTCODE";
 
 int main() {
 
@@ -81,6 +82,33 @@ int main() {
 
     // sets are unsorted to we display -1 for the time
     cout << setw(15) << -1 << endl;
+
+    /// *** Inserting Tests *** ///
+
+    cout << setw(15) << "Inserting:";
+
+    // testing inserting for vector
+    start = high_resolution_clock::now();
+    testVector.insert(testVector.begin() + (NUM_CODES / 2), INSERT_STRING);
+    end = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // testing inserting for list
+    start = high_resolution_clock::now();
+    list<string>::iterator it = testList.begin();
+    advance(it, NUM_CODES / 2);
+    testList.insert(it, INSERT_STRING);
+    end = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // testing insert for set
+    start = high_resolution_clock::now();
+    testSet.insert(INSERT_STRING);
+    end = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(end - start);
+    cout << setw(15) << duration.count() << endl;
 
     return 0;
 }
