@@ -1,3 +1,6 @@
+// Mae Schweller
+// CompSci 210 data structures
+// lab 25
 #include <iostream>
 #include <chrono>
 #include <vector>
@@ -13,7 +16,7 @@ const string INSERT_STRING = "TESTCODE";
 
 int main() {
 
-    cout << "All times are measured in milliseconds\n\n";
+    cout << "All times are measured in nanoseconds\n\n";
     cout << setw(15) << " "<< setw(15) << "Vector" << setw(15) << "List" << setw(15) << "Set" << endl;
 
     /// *** Reading Tests *** ///
@@ -31,7 +34,7 @@ int main() {
     }
     inFileVect.close();
     auto VectReadEnd = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(VectReadEnd - VectReadStart);
+    auto duration = duration_cast<nanoseconds>(VectReadEnd - VectReadStart);
     cout << setw(15) << duration.count();
 
     // testing reading for list
@@ -45,7 +48,7 @@ int main() {
     }
     inFileList.close();
     auto ListReadEnd = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(ListReadEnd - ListReadStart);
+    duration = duration_cast<nanoseconds>(ListReadEnd - ListReadStart);
     cout << setw(15) << duration.count();
 
     // testing reading for set
@@ -59,7 +62,7 @@ int main() {
     }
     inFileSet.close();
     auto SetReadEnd = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(SetReadEnd - SetReadStart);
+    duration = duration_cast<nanoseconds>(SetReadEnd - SetReadStart);
     cout << setw(15) << duration.count() << endl;
 
     /// *** Sorting Tests *** ///
@@ -70,14 +73,14 @@ int main() {
     auto start = high_resolution_clock::now();
     sort(testVector.begin(), testVector.end());
     auto end = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(end - start);
+    duration = duration_cast<nanoseconds>(end - start);
     cout << setw(15) << duration.count();
 
     // testing sorting for list
     start = high_resolution_clock::now();
     testList.sort();
     end = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(end - start);
+    duration = duration_cast<nanoseconds>(end - start);
     cout << setw(15) << duration.count();
 
     // sets are unsorted to we display -1 for the time
@@ -91,7 +94,7 @@ int main() {
     start = high_resolution_clock::now();
     testVector.insert(testVector.begin() + (NUM_CODES / 2), INSERT_STRING);
     end = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(end - start);
+    duration = duration_cast<nanoseconds>(end - start);
     cout << setw(15) << duration.count();
 
     // testing inserting for list
@@ -100,15 +103,47 @@ int main() {
     advance(it, NUM_CODES / 2);
     testList.insert(it, INSERT_STRING);
     end = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(end - start);
+    duration = duration_cast<nanoseconds>(end - start);
     cout << setw(15) << duration.count();
 
     // testing insert for set
     start = high_resolution_clock::now();
     testSet.insert(INSERT_STRING);
     end = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(end - start);
+    duration = duration_cast<nanoseconds>(end - start);
     cout << setw(15) << duration.count() << endl;
+
+    /// *** Testing Deleting *** ///
+    cout << setw(15) << "Deleting:";
+
+    // testing deleting for vector
+    start = high_resolution_clock::now();
+    testVector.erase(testVector.begin() + (NUM_CODES / 2));
+    end = high_resolution_clock::now();
+    duration = duration_cast<nanoseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // testing deleting for list
+    start = high_resolution_clock::now();
+    it = testList.begin();
+    advance(it, NUM_CODES / 2);
+    testList.erase(it);
+    end = high_resolution_clock::now();
+    duration = duration_cast<nanoseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // picking a "middle ish" element to delte to ensure proper testing;
+    // adding 3 to make sure it isn't the lement we just inserted
+    string toDelete = testVector.at(NUM_CODES / 2 + 3); 
+
+    // testing deleting for set
+    start = high_resolution_clock::now();
+    testSet.erase(toDelete);
+    end = high_resolution_clock::now();
+    duration = duration_cast<nanoseconds>(end - start);
+    cout << setw(15) << duration.count() << endl;
+
+    
 
     return 0;
 }
