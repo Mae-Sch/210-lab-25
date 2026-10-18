@@ -17,49 +17,49 @@ int main() {
 
     /// *** Reading Tests *** ///
 
-    out << setw(15) << "Reading:";
+    cout << setw(15) << "Reading:";
 
     // testing reading for vector;
-    auto start = high_resolution_clock::now();
-    vector<string> testVector
-    ifstream inFile("codes.txt");
+    auto VectReadStart = high_resolution_clock::now();
+    vector<string> testVector;
+    ifstream inFileVect("codes.txt");
     for (int i = 0; i < NUM_CODES; ++i) {
         string tempCode;
-        getline(inFile, tempCode);
+        getline(inFileVect, tempCode);
         testVector.push_back(tempCode);
     }
-    inFile.close();
-    auto end = high_resolution_clock::now()
-    auto duration = duration_cast<milliseconds>(end - start);
+    inFileVect.close();
+    auto VectReadEnd = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(VectReadEnd - VectReadStart);
     cout << setw(15) << duration.count();
 
     // testing reading for list
-    auto start = high_resolution_clock::now();
-    list<string> testList
-    ifstream inFile("codes.txt");
+    auto ListReadStart = high_resolution_clock::now();
+    list<string> testList;
+    ifstream inFileList("codes.txt");
     for (int i = 0; i < NUM_CODES; ++i) {
         string tempCode;
-        getline(inFile, tempCode);
+        getline(inFileList, tempCode);
         testList.push_front(tempCode);
     }
-    inFile.close();
-    auto end = high_resolution_clock::now()
-    auto duration = duration_cast<milliseconds>(end - start);
+    inFileList.close();
+    auto ListReadEnd = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(ListReadEnd - ListReadStart);
     cout << setw(15) << duration.count();
 
     // testing reading for set
-    auto start = high_resolution_clock::now();
-    set<string> testSet
-    ifstream inFile("codes.txt");
+    auto SetReadStart = high_resolution_clock::now();
+    set<string> testSet;
+    ifstream inFileSet("codes.txt");
     for (int i = 0; i < NUM_CODES; ++i) {
         string tempCode;
-        getline(inFile, tempCode);
+        getline(inFileSet, tempCode);
         testSet.insert(tempCode);
     }
-    inFile.close();
-    auto end = high_resolution_clock::now()
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << setw(15) << duration.count();
+    inFileSet.close();
+    auto SetReadEnd = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(SetReadEnd - SetReadStart);
+    cout << setw(15) << duration.count() << endl;
 
     return 0;
 }
