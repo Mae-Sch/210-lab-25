@@ -61,6 +61,27 @@ int main() {
     duration = duration_cast<milliseconds>(SetReadEnd - SetReadStart);
     cout << setw(15) << duration.count() << endl;
 
+    /// *** Sorting Tests *** ///
+
+    cout << setw(15) << "Sorting:";
+
+    // testing sorting for vectors
+    auto start = high_resolution_clock::now();
+    sort(testVector.begin(), testVector.end());
+    auto end = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // testing sorting for list
+    start = high_resolution_clock::now();
+    testList.sort();
+    end = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(end - start);
+    cout << setw(15) << duration.count();
+
+    // sets are unsorted to we display -1 for the time
+    cout << setw(15) << -1 << endl;
+
     return 0;
 }
 
